@@ -26,9 +26,21 @@ class ProviderOneProvider {
         },
       },
     };
+    const url = this.random();
     const { data, status } =
-      await this.providerOneFetcher.post<PaymentOneResponse>('', body);
+      await this.providerOneFetcher.post<PaymentOneResponse>(
+        `${url}/charges`,
+        body,
+      );
     return { data, status };
+  }
+
+  private random() {
+    const testeUrls = [
+      'd281d852-1f94-4486-84e5-56aa11af1abd',
+      '26ea0f96-7af0-4cb0-a7ff-a7eb8342ccd9',
+    ];
+    return testeUrls[Math.floor(Math.random() * (1 - 0 + 1) + 0)];
   }
 }
 

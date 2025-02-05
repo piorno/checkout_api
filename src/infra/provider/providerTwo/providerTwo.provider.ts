@@ -21,12 +21,20 @@ class ProviderTwoProvider {
       },
       statementDescriptor: params.description,
     };
+    const url = this.random();
     const { data, status } =
       await this.providerTwoFetcher.post<PaymentTwoResponse>(
-        'transactions',
+        `${url}/transactions`,
         body,
       );
     return { data, status };
+  }
+  private random() {
+    const testeUrls = [
+      'a24d3d5b-c49e-490b-93f1-00c120ae89c9',
+      '4ba15eaf-080d-45b4-a601-5258f3b27cac',
+    ];
+    return testeUrls[Math.floor(Math.random() * (1 - 0 + 1) + 0)];
   }
 }
 

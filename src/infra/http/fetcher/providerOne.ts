@@ -18,11 +18,12 @@ export default class ProviderOneFetcher extends Fetcher {
   }
 
   async fetch<T>(options: FetchOptions = {}): Promise<ReturnRequest<T>> {
-    const place = `PROVIDER_ONE_${this.random()}`;
-    const url = this.configServise.get(place);
+    const url = this.configServise.get('PROVIDER_ONE');
 
     const callName = `[${this.constructor.name}]`;
-    this.logger.log(`${callName} = Preparing to make request to [${url}]`);
+    this.logger.log(
+      `${callName} = Preparing to make request to [${url}/${options.url}]`,
+    );
 
     const { data, status } = await this.httpService.axiosRef.request({
       ...options,
@@ -33,12 +34,8 @@ export default class ProviderOneFetcher extends Fetcher {
       }),
     });
     this.logger.log(
-      `${callName} - Request recived [${url}] with status [${status}] and body [${JSON.stringify(data)}]`,
+      `${callName} - Request recived [${url}/${options.url}] with status [${status}] and body [${JSON.stringify(data)}]`,
     );
     return { data, status };
-  }
-
-  private random() {
-    return Math.floor(Math.random() * (2 - 1 + 1) + 1);
   }
 }
